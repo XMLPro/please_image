@@ -1,5 +1,6 @@
 from flask import Flask, request, abort
 import os
+import search
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -8,7 +9,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage, TextSendMessage,ImageSendMessage
 )
 
 app = Flask(__name__)
@@ -39,23 +40,15 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    # request = event.message.text
-    # result = "default"
-    # if request.startwith("plz"): #特定の文字列から始まるなら
-    #     result = request.split(" ")[1]
-    #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
-
-    # message = {
-    #     type: 'image',
-    #     originalContentUrl: "https://pbs.twimg.com/media/DL3N2vrVAAAFsfY.jpg",
-    #     previewImageUrl: "https://pbs.twimg.com/media/DL3N2vrVAAAFsfY.jpg"
-    # }
-
-    message = {
-        type: 'text',
-        text: "hello"
-    }        
-    line_bot_api.reply_message(event.reply_token,message)
+    request = event.message.text
+    if request.startswith("plz"): #特定の文字列から始まるなら
+        result = request.split(" ")[1]
+        url = search.one(result)
+        image_message = ImageSendMessage(
+            original_content_url=url,
+            preview_image_url=url
+        )
+        line_bot_api.reply_message(event.reply_token,image_message)
 
 
 if __name__ == "__main__":
