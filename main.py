@@ -40,9 +40,9 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    request = event.message.text
-    if request.startswith("plz"): #特定の文字列から始まるなら
-        result = request.split(" ")[1]
+    input_message = event.message.text
+    if input_message.startswith("plz"): #特定の文字列から始まるなら
+        result = input_message.split(" ")[1]
         url = search.one_include_http(result, request.url_root)
         image_message = ImageSendMessage(
             original_content_url=url,
