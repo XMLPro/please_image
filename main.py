@@ -40,14 +40,16 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    request = event.message.text
-    if request.startswith("plz"): #特定の文字列から始まるなら
-        result = request.split(" ")[1]
-        url = search.one_include_http(result, request.url_root)
-        image_message = ImageSendMessage(
-            original_content_url=url,
-            preview_image_url=url
-        )
+    input_message = event.message.text
+    if input_message.startswith("plz"): #特定の文字列から始まるなら
+        result = input_message.split(" ")[1]
+        url = search.one_include_http(result, "https://{}/".format(request.host))
+        # image_message = ImageSendMessage(
+        #     original_content_url=url,
+        #     preview_image_url=url
+        # )
+        # by debug
+        image_message = TextSendMessage(text=url)
         line_bot_api.reply_message(event.reply_token,image_message)
 
     # そうじゃないならとりあえず何もしない
