@@ -43,7 +43,7 @@ def handle_message(event):
     input_message = event.message.text
     if input_message.startswith("plz"): #特定の文字列から始まるなら
         result = input_message.split(" ")[1]
-        url = search.one_include_http(result, request.url_root)
+        url = search.one_include_http(result, "https://{}/".format(request.host))
         # image_message = ImageSendMessage(
         #     original_content_url=url,
         #     preview_image_url=url
