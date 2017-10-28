@@ -37,14 +37,6 @@ def callback():
 
     return 'OK'
 
-
-#webhook追加いらないかも
-@app.route('/webhook', methods=['POST'])
-def webhook():
-    reply_to_line(request.json)
-    return '', 200, {}
-
-
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     line_bot_api.reply_message(
