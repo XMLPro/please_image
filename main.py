@@ -45,17 +45,11 @@ def handle_message(event):
         result = request.split(" ")[1]
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
 
-    # message = {
-    #     type: 'image',
-    #     originalContentUrl: "https://pbs.twimg.com/media/DL3N2vrVAAAFsfY.jpg",
-    #     previewImageUrl: "https://pbs.twimg.com/media/DL3N2vrVAAAFsfY.jpg"
-    # }
-
-    message = {
-        "type": "text",
-        "text": "hello"
-    }        
-    line_bot_api.reply_message(event.reply_token,message)
+    image_message = ImageSendMessage(
+        original_content_url='https://pbs.twimg.com/media/DL3N2v2UEAAO_9_.jpg',
+        preview_image_url='https://pbs.twimg.com/media/DL3N2v2UEAAO_9_.jpg'
+    )
+    line_bot_api.reply_message(event.reply_token,image_message)
 
 
 if __name__ == "__main__":
