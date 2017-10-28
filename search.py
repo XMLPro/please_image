@@ -41,8 +41,8 @@ def one(query):
 def one_include_http(query, root):
     url = random.choice(image_search(query))
     image = requests.get(url)
-    save_name = "/static/image/TMP_IMAGE." + url.split(".")[-1]
-    save_path = base_dir + save_name
+    save_name = "static/image/TMP_IMAGE." + url.split(".")[-1]
+    save_path = base_dir + "/" + save_name
     if image.status_code == 200:
         with open(save_path, "wb") as f:
             f.write(image.content)
