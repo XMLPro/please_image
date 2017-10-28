@@ -52,8 +52,8 @@ def handle_message(event):
     # }
 
     message = {
-        type: 'text',
-        text: "hello"
+        "type": "text",
+        "text": "hello"
     }        
     line_bot_api.reply_message(event.reply_token,message)
 
