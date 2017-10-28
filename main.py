@@ -1,5 +1,6 @@
 from flask import Flask, request, abort
 import os
+import search
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -40,16 +41,14 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     request = event.message.text
-    result = "default"
     if request.startswith("plz"): #特定の文字列から始まるなら
         result = request.split(" ")[1]
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
-
-    image_message = ImageSendMessage(
-        original_content_url='https://pbs.twimg.com/media/DL3N2v2UEAAO_9_.jpg',
-        preview_image_url='https://pbs.twimg.com/media/DL3N2v2UEAAO_9_.jpg'
-    )
-    line_bot_api.reply_message(event.reply_token,image_message)
+        url = search.one(result)
+        image_message = ImageSendMessage(
+            original_content_url=url,
+            preview_image_url=url
+        )
+        line_bot_api.reply_message(event.reply_token,image_message)
 
 
 if __name__ == "__main__":
