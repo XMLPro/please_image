@@ -17,10 +17,11 @@ def image_search(query):
             ).execute()
 
     items = response["items"]
-    pagemaps = [item["pagemap"] for item in items]
-    cse_images = [pagemap["cse_image"] for pagemap in pagemaps]
+    pagemaps = [item.get("pagemap") for item in items]
+    cse_images = [pagemap.get("cse_image") for pagemap in pagemaps if pagemap]
     return [c["src"]
             for cse_image in cse_images
+            if cse_image
             for c in cse_image
             if c["src"].startswith("https")]
 
