@@ -48,9 +48,10 @@ def handle_message(event):
             original_content_url=url,
             preview_image_url=url
         )
-        # by debug
-        # image_message = TextSendMessage(text=url)
         line_bot_api.reply_message(event.reply_token,image_message)
+        #by debug
+        mage_message = TextSendMessage(text=url)
+        line_bot_api.reply_message(event.reply_token,mage_message)
 
     # そうじゃないならとりあえず何もしない
 
