@@ -57,11 +57,8 @@ def handle_message(event):
     if input_message.startswith("url"):
         result = input_message.split()[1]
         url = search.one_include_http(result, "https://{}/".format(request.host))
-        image_message = ImageSendMessage(
-            original_content_url=url,
-            preview_image_url=url
-        )
-        line_bot_api.reply_message(event.reply_token,image_message)
+        text_message = TextSendMessage(text=url)
+        line_bot_api.reply_message(event.reply_token,text_message)
 
     # そうじゃないならとりあえず何もしない
 
