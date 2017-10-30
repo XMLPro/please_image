@@ -22,16 +22,12 @@ def image_search(query):
                 q=query,
                 cx=search_engine,
                 lr="lang_ja",
-                start=1
+                num=10,
+                start=1,
+                searchType="image"
             ).execute()
-
     items = response["items"]
-    pagemaps = [item.get("pagemap") for item in items]
-    cse_images = [pagemap.get("cse_image") for pagemap in pagemaps if pagemap]
-    return [c["src"]
-            for cse_image in cse_images
-            if cse_image
-            for c in cse_image]
+    return [item.get("link") for item in items]
 
 
 def only_https(url_list):
