@@ -45,10 +45,9 @@ def random_name(length):
 
 
 def delete_files(dir_name):
-    [os.remove(x) for x in os.listdir(base_dir+ "/static/image/line/") if not x.startswith(".")]
     for filename in os.listdir(dir_name):
         if not filename.startswith("."):
-            os.remove(filename)
+            os.remove(dir_name + filename)
 
 
 # get root like this: request.url_root
