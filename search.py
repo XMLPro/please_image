@@ -18,16 +18,17 @@ name_parts = list(itertools.chain(
         ))
 
 def image_search(query):
-    response = service.cse().list(
-                q=query,
-                cx=search_engine,
-                lr="lang_ja",
-                num=10,
-                start=1,
-                searchType="image"
-            ).execute()
-    items = response["items"]
-    return [item.get("link") for item in items]
+    return ["http://www.teu.ac.jp/infomation/2014/images/2014CS_gakubucho.jpg"]
+    # response = service.cse().list(
+    #             q=query,
+    #             cx=search_engine,
+    #             lr="lang_ja",
+    #             num=10,
+    #             start=1,
+    #             searchType="image"
+    #         ).execute()
+    # items = response["items"]
+    # return [item.get("link") for item in items]
 
 
 def only_https(url_list):
