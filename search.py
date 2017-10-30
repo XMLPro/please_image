@@ -6,6 +6,7 @@ import itertools
 api_key = os.environ.get("GOOGLE_SEARCH_API_KEY")
 search_engine = os.environ.get("GOOGLE_SEARCH_ENGINE")
 DUMMY_IMAGE = False
+DEBUG = True
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -30,7 +31,12 @@ def image_search(query):
                 searchType="image"
             ).execute()
     items = response["items"]
-    return [item.get("link") for item in items]
+    links = [item.get("link") for item in items]
+    if DEBUG:
+        print("--- searched images ---")
+        for i in links:
+            print(i)
+    return links
 
 
 def only_https(url_list):
@@ -57,6 +63,9 @@ def one_include_http(query, root):
     url = random.choice(image_search(query))
     if url.startswith("https"):
         return url
+    if DEBUG:
+        print("--- one image ---")
+        print(url)
     image = requests.get(url)
     save_dir = "static/image/line/"
     save_name = "{}{}.{}".format(save_dir, random_name(30), url.split(".")[-1])

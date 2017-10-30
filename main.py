@@ -53,6 +53,16 @@ def handle_message(event):
         # mage_message = TextSendMessage(text=url)
         # line_bot_api.reply_message(event.reply_token,mage_message)
 
+    # get url
+    if input_message.startswith("url"):
+        result = input_message.split()[1]
+        url = search.one_include_http(result, "https://{}/".format(request.host))
+        image_message = ImageSendMessage(
+            original_content_url=url,
+            preview_image_url=url
+        )
+        line_bot_api.reply_message(event.reply_token,image_message)
+
     # そうじゃないならとりあえず何もしない
 
 if __name__ == "__main__":
