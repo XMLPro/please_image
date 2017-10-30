@@ -5,6 +5,7 @@ import requests
 import itertools
 api_key = os.environ.get("GOOGLE_SEARCH_API_KEY")
 search_engine = os.environ.get("GOOGLE_SEARCH_ENGINE")
+DUMMY_IMAGE = False
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -18,17 +19,18 @@ name_parts = list(itertools.chain(
         ))
 
 def image_search(query):
-    return ["http://www.teu.ac.jp/infomation/2014/images/2014CS_gakubucho.jpg"]
-    # response = service.cse().list(
-    #             q=query,
-    #             cx=search_engine,
-    #             lr="lang_ja",
-    #             num=10,
-    #             start=1,
-    #             searchType="image"
-    #         ).execute()
-    # items = response["items"]
-    # return [item.get("link") for item in items]
+    if DUMMY_IMAGE:
+        return ["http://www.teu.ac.jp/infomation/2014/images/2014CS_gakubucho.jpg"]
+    response = service.cse().list(
+                q=query,
+                cx=search_engine,
+                lr="lang_ja",
+                num=10,
+                start=1,
+                searchType="image"
+            ).execute()
+    items = response["items"]
+    return [item.get("link") for item in items]
 
 
 def only_https(url_list):
