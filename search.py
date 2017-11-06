@@ -6,7 +6,7 @@ import itertools
 api_key = os.environ.get("GOOGLE_SEARCH_API_KEY")
 search_engine = os.environ.get("GOOGLE_SEARCH_ENGINE")
 DUMMY_IMAGE = False
-DEBUG = True
+DEBUG = False
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -58,20 +58,12 @@ def delete_files(dir_name):
             os.remove(dir_name + filename)
 
 
-# get root like this: request.url_root
-def one_include_http(query, root):
+def one_include_http(query):
     url = random.choice(image_search(query))
     if url.startswith("https"):
         return url
     if DEBUG:
         print("--- one image ---")
         print(url)
-    image = requests.get(url)
-    save_dir = "static/image/line/"
-    save_name = "{}{}.{}".format(save_dir, random_name(30), url.split(".")[-1])
-    save_path = "{}/{}".format(base_dir, save_name)
-    delete_files("{}/{}".format(base_dir, save_dir))
-    if image.status_code == 200:
-        with open(save_path, "wb") as f:
-            f.write(image.content)
-    return root + save_name
+    echo = "https://ximagecho.herokuapp.com/echo?url="
+    return echo + url
