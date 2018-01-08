@@ -6,7 +6,7 @@ import itertools
 api_key = os.environ.get("GOOGLE_SEARCH_API_KEY")
 search_engine = os.environ.get("GOOGLE_SEARCH_ENGINE")
 DUMMY_IMAGE = False
-DEBUG = True
+DEBUG = False
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
