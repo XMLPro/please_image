@@ -41,10 +41,10 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     input_message = event.message.text
-    result = input_message.split("\n")[0]
-    result = input_message.split(" ")[1:]
+    first = input_message.split("\n")[0]
+    result = first.split(" ")[1:]
     if input_message.startswith("plz"): #特定の文字列から始まるなら
-        url = search.one_include_http(" ".join(result))
+        url = search.image_search(" ".join(result))
         image_message = ImageSendMessage(
             original_content_url=url,
             preview_image_url=url
@@ -56,7 +56,7 @@ def handle_message(event):
 
     # get url
     if input_message.startswith("url"):
-        url = search.one_include_http(" ".join(result))
+        url = search.image_search(" ".join(result))
         text_message = TextSendMessage(text=url)
         line_bot_api.reply_message(event.reply_token,text_message)
 
